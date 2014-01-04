@@ -1,0 +1,73 @@
+AllCops:
+  Includes:
+    - '../**/*.rake'
+    - 'Gemfile'
+    - 'Rakefile'
+  Excludes:
+    - 'Guardfile'
+    - 'tmp/**/*'
+    - 'spec/spec_helper.rb'
+    - '.imba/**/*'
+
+ParameterLists:
+  Max: 3
+  CountKeywordArgs: true
+
+BlockNesting:
+  Max: 3
+
+HashSyntax:
+  Enabled: true
+
+StringLiterals:
+  Enabled: true
+
+Void:
+  Enabled: true
+
+LineLength:
+  Enabled: true
+  Max: 120
+
+SpaceInsideHashLiteralBraces:
+  Enabled: true
+
+AlignParameters:
+  Enabled: true
+
+Blocks:
+  Enabled: false
+
+NumericLiterals:
+  Enabled: true
+
+SpaceInsideBrackets:
+  Enabled: true
+
+WordArray:
+  Enabled: true
+
+Lambda:
+  Enabled: true
+
+RegexpLiteral:
+  Enabled: true
+
+ConstantName:
+  Enabled: false
+
+TrivialAccessors:
+  Enabled: true
+  ExactNameMatch: true
+
+Alias:
+  Enabled: true
+
+Loop:
+  Enabled: true
+
+AndOr:
+  Enabled: false
+
+Documentation:
+  Enabled: false
