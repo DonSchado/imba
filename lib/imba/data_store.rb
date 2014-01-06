@@ -56,8 +56,17 @@ module Imba
       end
 
       def inspect
-        vars = instance_variables.map { |v| "#{v}=#{instance_variable_get(v).inspect}" }.join(', ')
-        "<#{to_s}: #{vars}>"
+        "#<#{name}:#{ruby_like_object_id} #{instance_vars}>"
+      end
+
+      private
+
+      def ruby_like_object_id
+        "0x#{(object_id << 1).to_s(16)}"
+      end
+
+      def instance_vars
+        instance_variables.map { |v| "#{v}=#{instance_variable_get(v).inspect}" }.join(', ')
       end
     end
   end
