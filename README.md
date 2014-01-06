@@ -3,18 +3,23 @@
 [![Build Status](https://travis-ci.org/DonSchado/imba.png?branch=master)](https://travis-ci.org/DonSchado/imba)
 [![Code Climate](https://codeclimate.com/github/DonSchado/imba.png)](https://codeclimate.com/github/DonSchado/imba)
 
-- init .imba-store
-- sync: get current directory list (movie names)
-  - place names in queue w/o .imba-meta
-    - pop movie and search imdb
-    - get first item
-    - ask for updating movie
-      - rename file
-      - place .imba-meta file with id, title, genre, rating, year
-      - write .imba-meta into imba-store
-- list movies by rating | genre | etc
-  - print imba-store
-- play movie # on ATV
+## Todo:
+
+- [x] init .imba-store
+- [x] persistence datastore
+- [ ] rescue ".imba does not exist (PStore::Error)"
+- [ ] sync: get current directory list (movie names)
+- [ ] place names in queue w/o .imba-meta
+- [ ] pop movie and search imdb
+- [ ] get first item
+- [ ] ask for updating movie
+- [ ] rename file
+- [ ] place .imba-meta file with id, title, genre, rating, year
+- [ ] write .imba-meta into imba-store
+- [ ] list movies by rating | genre | etc
+- [ ] print imba-store
+- [ ] play movie # on ATV
+- [ ] maybe document code with yard
 
 
 ## Installation

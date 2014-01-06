@@ -33,6 +33,14 @@ module Imba
         data_store.transaction(true) { @data.roots }
       end
 
+      def to_hash
+        Imba::DataStore.all.each_with_object({}) { |id, hsh| hsh[id] = Imba::DataStore[id] }
+      end
+
+      def to_a
+        Imba::DataStore.all.each_with_object([]) { |id, ary| ary << "#{id}: #{Imba::DataStore[id]}" }
+      end
+
       def transaction
         data_store.transaction do
           yield @data
@@ -56,6 +64,7 @@ module Imba
       end
 
       def inspect
+        data_store
         "#<#{name}:#{ruby_like_object_id} #{instance_vars}>"
       end
 

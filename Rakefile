@@ -3,10 +3,10 @@ require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
 
-task default: :spec
+task default: :check
 
 desc 'check all the things before you commit'
-task check: :default do
+task check: :spec do
   system 'rubocop'
   system 'flog lib'
 end
