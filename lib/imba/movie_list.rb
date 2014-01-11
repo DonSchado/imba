@@ -1,5 +1,6 @@
 module Imba
   class MovieList
+    include Colors
     attr_reader :movies
 
     def initialize
@@ -29,7 +30,7 @@ module Imba
 
         # update movie name? (folder)
         if movie_name != movie_title
-          puts "change #{movie_name} => #{movie_title}? \n(enter 'y' to confirm or anything else to continue)"
+          puts "change #{red(movie_name)} => #{green(movie_title)}? \n(enter 'y' to confirm or anything else to continue)"
           if STDIN.gets.strip.downcase == "y"
             FileUtils.mv(movie_name, movie_title)
           end
