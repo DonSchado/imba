@@ -21,18 +21,26 @@ module Imba
       # for each movie
       movie_dirs.each do |movie_name|
         # check movie name on imdb
-        result = Imdb::Movie.search(movie_name).first
+        result = Imdb::Movie.search(movie_name).first # needs rescue?
         # puts foundings
-        movie = "#{result.title} (#{result.id}) #{result.genres} #{result.rating}/10"
+        movie_title = result.title.gsub(/\(\d+\)/, '').strip
+        movie = "#{movie_title}, #{result.year}, #{result.genres}, #{result.rating}/10"
         Imba::DataStore["#{result.id}"] = movie
-        puts "#{movie_name} \t=>\t #{movie}"
-          # ask if founding is correct
-          # update movie name? (folder)
 
+        # update movie name? (folder)
+        if movie_name != movie_title
+          puts "change #{movie_name} => #{movie_title}? \n(enter 'y' to confirm or anything else to continue)"
+          if STDIN.gets.strip.downcase == "y"
+            FileUtils.mv(movie_name, movie_title)
+          end
+        end
+
+        # ask if founding is correct
         # write .imdb_uniq_id in movie folder
         # save movie name and imdb_uniq_id in DataStore[:movies]
         # or serialize hole imdb movie object?!
       end
+      "done"
     end
 
   end
