@@ -8,6 +8,8 @@
 - [x] init .imba-store
 - [x] persistence datastore
 - [x] sync: get current directory list (movie names)
+- [ ] fix utf-8 issues
+- [ ] cleanup movie titles, remove crap like (I)
 - [ ] rescue ".imba does not exist (PStore::Error)"
 - [ ] place names in queue w/o .imba-meta
 - [ ] pop movie and search imdb

@@ -24,21 +24,22 @@ module Imba
       movie_dirs.each do |directory_name|
         # check movie name on imdb
         result = Imdb::Movie.search(directory_name).first # needs rescue?
-        movie_title = result.title.gsub(/\(\d+\)/, '').strip
+        movie_title = result.title.gsub(/\(\d+\)|\(\w\)/, '').strip
         movie = "#{movie_title} (#{result.year}) #{result.genres} #{result.rating}/10"
 
         # puts foundings
         # update movie name? (folder)
         if directory_name != movie_title
-          puts "change #{red(directory_name)} => #{green(movie_title)}? \n#{prompt}"
+          STDOUT.puts "change #{red(directory_name)} => #{green(movie_title)}? \n#{prompt}"
           FileUtils.mv(directory_name, movie_title) if STDIN.gets.strip.downcase == 'y'
         end
 
         if Imba::DataStore.key?(result.id) && Imba::DataStore[result.id] != movie
-          puts "update?\n- #{red(Imba::DataStore[result.id])} \n+ #{green(movie)} \n#{prompt}"
+          STDOUT.puts "update?\n- #{red(Imba::DataStore[result.id])} \n+ #{green(movie)} \n#{prompt}"
           Imba::DataStore[result.id] = movie if STDIN.gets.strip.downcase == 'y'
         else
-          Imba::DataStore[result.id] = movie
+          STDOUT.puts "save? #{green(movie)} \n#{prompt}"
+          Imba::DataStore[result.id] = movie if STDIN.gets.strip.downcase == 'y'
         end
 
         # ask if founding is correct
