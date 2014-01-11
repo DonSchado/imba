@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'imba/version'
 require 'imba/cli'
 require 'imba/colors'

@@ -5,6 +5,7 @@
 
 ## Todo:
 
+- [x] build a mess and refactor later :)
 - [x] init .imba-store
 - [x] persistence datastore
 - [x] sync: get current directory list (movie names)
@@ -22,6 +23,8 @@
 - [ ] print imba-store
 - [ ] play movie # on ATV
 - [ ] maybe document code with yard
+- [ ] decouple movie (objectify representation)
+- [ ] colorize output
 
 
 ## Installation
