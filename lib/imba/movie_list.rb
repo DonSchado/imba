@@ -22,30 +22,36 @@ module Imba
       prompt = '(enter "y" to confirm or anything else to continue)'
       # for each movie
       movie_dirs.each do |directory_name|
-        # check movie name on imdb
-        result = Imdb::Movie.search(directory_name).first # needs rescue?
-        movie_title = result.title.gsub(/\(\d+\)|\(\w\)/, '').strip
-        movie = "#{movie_title} (#{result.year}) #{result.genres} #{result.rating}/10"
-
-        # puts foundings
-        # update movie name? (folder)
-        if directory_name != movie_title
-          STDOUT.puts "change #{red(directory_name)} => #{green(movie_title)}? \n#{prompt}"
-          FileUtils.mv(directory_name, movie_title) if STDIN.gets.strip.downcase == 'y'
-        end
-
-        if Imba::DataStore.key?(result.id) && Imba::DataStore[result.id] != movie
-          STDOUT.puts "update?\n- #{red(Imba::DataStore[result.id])} \n+ #{green(movie)} \n#{prompt}"
-          Imba::DataStore[result.id] = movie if STDIN.gets.strip.downcase == 'y'
+        # skip if directory_name in DataStore
+        indexed_movie = Imba::DataStore.to_a.grep(/#{directory_name}/).first
+        if !indexed_movie.nil?
+          STDOUT.puts yellow("skipped: #{indexed_movie}")
         else
-          STDOUT.puts "save? #{green(movie)} \n#{prompt}"
-          Imba::DataStore[result.id] = movie if STDIN.gets.strip.downcase == 'y'
-        end
+          # check movie name on imdb
+          result = Imdb::Movie.search(directory_name).first # needs rescue?
+          movie_title = result.title.gsub(/\(\d+\)|\(\w\)/, '').strip
+          movie = "#{movie_title} (#{result.year}) #{result.genres} #{result.rating}/10"
 
-        # ask if founding is correct
-        # write .imdb_uniq_id in movie folder
-        # save movie name and imdb_uniq_id in DataStore[:movies]
-        # or serialize hole imdb movie object?!
+          # puts foundings
+          # update movie name? (folder)
+          if directory_name != movie_title
+            STDOUT.puts "change #{red(directory_name)} => #{green(movie_title)}? \n#{prompt}"
+            FileUtils.mv(directory_name, movie_title) if STDIN.gets.strip.downcase == 'y'
+          end
+
+          if Imba::DataStore.key?(result.id) && Imba::DataStore[result.id] != movie
+            STDOUT.puts "update?\n- #{red(Imba::DataStore[result.id])} \n+ #{green(movie)} \n#{prompt}"
+            Imba::DataStore[result.id] = movie if STDIN.gets.strip.downcase == 'y'
+          else
+            STDOUT.puts "save? #{green(movie)} \n#{prompt}"
+            Imba::DataStore[result.id] = movie if STDIN.gets.strip.downcase == 'y'
+          end
+
+          # ask if founding is correct
+          # write .imdb_uniq_id in movie folder
+          # save movie name and imdb_uniq_id in DataStore[:movies]
+          # or serialize hole imdb movie object?!
+        end
       end
       STDOUT.puts 'done'
     end
