@@ -4,7 +4,7 @@ require 'imba/colors'
 require 'imba/data_store'
 require 'imba/movie'
 require 'imba/movie_list'
-require "imdb"
+require 'imdb'
 
 module Imba
   PATH ||= Dir.pwd

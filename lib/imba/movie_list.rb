@@ -10,7 +10,7 @@ module Imba
     def movie_dirs
       # don't belong here...
       # get movie names (dirs)
-      @movie_dirs ||= Dir['*'].select {|f| File.directory? f}
+      @movie_dirs ||= Dir['*'].select { |f| File.directory? f }
     end
 
     def add
@@ -19,6 +19,7 @@ module Imba
     # @movie_dirs.each { |d| FileUtils.cd(d) { FileUtils.touch ".hello" } }
 
     def synch
+      prompt = '(enter "y" to confirm or anything else to continue)'
       # for each movie
       movie_dirs.each do |directory_name|
         # check movie name on imdb
@@ -29,17 +30,13 @@ module Imba
         # puts foundings
         # update movie name? (folder)
         if directory_name != movie_title
-          puts "change #{red(directory_name)} => #{green(movie_title)}? \n(enter 'y' to confirm or anything else to continue)"
-          if STDIN.gets.strip.downcase == "y"
-            FileUtils.mv(directory_name, movie_title)
-          end
+          puts "change #{red(directory_name)} => #{green(movie_title)}? \n#{prompt}"
+          FileUtils.mv(directory_name, movie_title) if STDIN.gets.strip.downcase == 'y'
         end
 
         if Imba::DataStore.key?(result.id) && Imba::DataStore[result.id] != movie
-          puts "update?\n- #{red(Imba::DataStore[result.id])} \n+ #{green(movie)} \n(enter 'y' to confirm or anything else to continue)"
-          if STDIN.gets.strip.downcase == "y"
-            Imba::DataStore[result.id] = movie
-          end
+          puts "update?\n- #{red(Imba::DataStore[result.id])} \n+ #{green(movie)} \n#{prompt}"
+          Imba::DataStore[result.id] = movie if STDIN.gets.strip.downcase == 'y'
         else
           Imba::DataStore[result.id] = movie
         end
@@ -49,8 +46,7 @@ module Imba
         # save movie name and imdb_uniq_id in DataStore[:movies]
         # or serialize hole imdb movie object?!
       end
-      "done"
+      STDOUT.puts 'done'
     end
-
   end
 end

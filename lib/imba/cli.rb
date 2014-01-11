@@ -9,8 +9,8 @@ module Imba
         opts.banner = "Usage: #{EXECUTABLE} command [arguments...] [options...]"
 
         opts.on('--init', 'Initialize imba data store in current directory') do
-          if File.directory?(".imba")
-            stdout.puts "here is already an .imba directory"
+          if File.directory?('.imba')
+            stdout.puts 'here is already an .imba directory'
           else
             "#{PATH}/.imba".tap { |dir| FileUtils.mkdir_p(dir) }
             Imba::DataStore.init
@@ -19,11 +19,11 @@ module Imba
         end
 
         opts.on('--destroy', 'Remove all .imba files and data store from current directory') do
-          if File.directory?(".imba")
+          if File.directory?('.imba')
             # TODO: dangerous stuff...
             FileUtils.rm_rf(Imba::DIRECTORY)
           else
-            stdout.puts "nothing to destroy here"
+            stdout.puts 'nothing to destroy here'
           end
           exit
         end
