@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Marco Schaden']
   spec.email         = ['ms@donschado.de']
   spec.summary       = %q{Imba is a command-line application to manage movies.}
-  spec.description   = %q{With Imba you can manage your movies by meta information (like rating, genre, year) from IMDB and play on your Apple TV through Airplay (given a simple file structure).}
-  spec.homepage      = ''
+  spec.description   = %q{With Imba you can manage your movies by meta information (like rating, genre, year) from IMDB.}
+  spec.homepage      = 'https://github.com/donschado/imba'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
@@ -31,5 +31,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'flog'
 
   spec.add_runtime_dependency 'imdb', '~> 0.8.0'
-  spec.add_runtime_dependency 'airplay', '~> 1.0.2'
 end
