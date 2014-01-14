@@ -20,6 +20,9 @@ module Imba
     end
     # @movie_dirs.each { |d| FileUtils.cd(d) { FileUtils.touch ".hello" } }
 
+    #
+    # TODO: make it work first, refactor later
+    #
     def synch
       prompt = '(enter "y" to confirm or anything else to continue)'
       # for each movie
@@ -51,11 +54,6 @@ module Imba
             Imba::DataStore[result.id] = movie if STDIN.gets.strip.downcase == 'y'
             Imba::DataStore[:genres] = (genres << Imba::DataStore[:genres]).flatten.uniq.compact
           end
-
-          # ask if founding is correct
-          # write .imdb_uniq_id in movie folder
-          # save movie name and imdb_uniq_id in DataStore[:movies]
-          # or serialize hole imdb movie object?!
         end
       end
       STDOUT.puts 'done'

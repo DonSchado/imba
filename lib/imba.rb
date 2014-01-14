@@ -1,4 +1,5 @@
 # encoding: utf-8
+require_relative '../db/connection.rb'
 require 'imba/version'
 require 'imba/cli'
 require 'imba/colors'
