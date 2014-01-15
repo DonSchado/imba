@@ -14,6 +14,7 @@
 - [x] cleanup movie titles, remove crap like (I)
 
 - [ ] refactor to use active_record instead of datastore for movies
+- [ ] database cleaner
 - [ ] fix utf-8 issues
 - [ ] rescue ".imba does not exist (PStore::Error)"
 - [ ] place names in queue w/o .imba-meta

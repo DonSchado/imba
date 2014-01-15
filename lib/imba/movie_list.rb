@@ -34,7 +34,7 @@ module Imba
         else
           # check movie name on imdb
           result = Imdb::Movie.search(directory_name).first # needs rescue?
-          movie_title = result.title.gsub(/\(\d+\)|\(\w\)/, '').strip.force_encoding("UTF-8")
+          movie_title = result.title.gsub(/\(\d+\)|\(\w\)/, '').strip.force_encoding('UTF-8')
           # TODO: underscore to_sym?
           genres = result.genres.map { |g| g.downcase.to_sym }
           movie = "#{movie_title} (#{result.year}) #{genres} #{result.rating}/10"
