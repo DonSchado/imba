@@ -30,6 +30,16 @@ module Imba
           exit
         end
 
+        opts.on('-s', '--synch', 'Scan movies and update database') do
+          Imba::MovieList.new.synch
+          exit
+        end
+
+        opts.on('-l', '--list', 'List all your movies') do
+          Imba::Movie.list
+          exit
+        end
+
         opts.on('-v', '--version', 'Show current version') do
           stdout.puts "IMBA #{Imba::VERSION}"
           exit

@@ -17,9 +17,6 @@ module Imba
     end
 
     def movie_dirs
-      # don't belong here...
-      # get movie names (dirs)
-      # @movie_dirs.each { |d| FileUtils.cd(d) { FileUtils.touch ".hello" } }
       @movie_dirs ||= Dir['*'].select { |f| File.directory? f }
     end
 

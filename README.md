@@ -16,6 +16,7 @@
 - [x] refactor to use active_record instead of datastore for movies
 - [ ] get/send different name when false match
 - [ ] add possibility to update
+- [ ] what's up with folders which were deleted but are still in the db?
 - [ ] add tags to handle genres
 - [ ] database cleaner
 - [ ] fix utf-8 issues
