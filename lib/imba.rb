@@ -1,5 +1,6 @@
 # encoding: utf-8
-require_relative '../db/connection.rb'
+require 'active_record'
+require 'yaml'
 require 'imba/version'
 require 'imba/cli'
 require 'imba/colors'
@@ -11,4 +12,11 @@ require 'imdb'
 module Imba
   PATH ||= Dir.pwd
   DIRECTORY = "#{PATH}/.imba"
+
+  ActiveRecord::Base.establish_connection(
+    adapter: 'sqlite3',
+    database: "#{DIRECTORY}/data.sqlite3",
+    pool: 5,
+    timeout: 5000
+  )
 end

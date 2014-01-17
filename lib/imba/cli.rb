@@ -15,6 +15,7 @@ module Imba
           else
             "#{PATH}/.imba".tap { |dir| FileUtils.mkdir_p(dir) }
             Imba::DataStore.init
+            Imba::DataStore.migrate
           end
           exit
         end
