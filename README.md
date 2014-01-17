@@ -12,21 +12,17 @@
 - [x] ask for updating movie
 - [x] rename directory
 - [x] cleanup movie titles, remove crap like (I)
-
-- [ ] refactor to use active_record instead of datastore for movies
+- [x] synching stuff with progressbar (downloading all the movies)
+- [x] refactor to use active_record instead of datastore for movies
+- [ ] get/send different name when false match
+- [ ] add possibility to update
+- [ ] add tags to handle genres
 - [ ] database cleaner
 - [ ] fix utf-8 issues
-- [ ] rescue ".imba does not exist (PStore::Error)"
-- [ ] place names in queue w/o .imba-meta
-- [ ] pop movie and search imdb
-- [ ] get first item
-- [ ] place .imba-meta file with id, title, genre, rating, year
-- [ ] write .imba-meta into imba-store
 - [ ] list movies by rating | genre | etc
 - [ ] print imba-store
 - [ ] maybe document code with yard
 - [ ] decouple movie (objectify representation)
-- [ ] colorize output
 - [ ] play movie # on ATV
 
 

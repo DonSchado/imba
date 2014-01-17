@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'imdb', '~> 0.8.0'
   spec.add_runtime_dependency 'activerecord', '~> 4.0.1'
   spec.add_runtime_dependency 'sqlite3', '~> 1.3.8'
+  spec.add_runtime_dependency 'ruby-progressbar', '~> 1.4.0'
 end

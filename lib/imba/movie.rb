@@ -1,5 +1,6 @@
 module Imba
   class Movie < ActiveRecord::Base
+    serialize :genres, Array
     # attr_reader :id
     # attr_accessor :data
 
@@ -55,5 +56,9 @@ module Imba
     # def update(key, value)
     #   Imba::DataStore[id] = Imba::DataStore[id].merge(key => value)
     # end
+
+    def to_s
+      "#{uniq_id}: #{name} (#{year}), #{rating}/10, #{genres}"
+    end
   end
 end
