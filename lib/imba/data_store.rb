@@ -1,5 +1,3 @@
-require 'pstore'
-
 module Imba
   module DataStore
     class << self

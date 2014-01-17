@@ -24,7 +24,7 @@
 - [ ] print imba-store
 - [ ] maybe document code with yard
 - [ ] decouple movie (objectify representation)
-- [ ] play movie # on ATV
+- [ ] play movie # on ATV (at least open folder or send to vlc)
 
 
 ## Installation

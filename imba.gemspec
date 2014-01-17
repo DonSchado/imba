@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec', '~> 2.14.1'
   spec.add_development_dependency 'rspec-pride', '~> 2.2.0'
+  spec.add_development_dependency 'database_cleaner', '~> 1.2.0'
   spec.add_development_dependency 'guard-rspec', '~> 4.2.3'
   spec.add_development_dependency 'pry', '~> 0.9.12.4'
   spec.add_development_dependency 'pry-rescue', '~> 1.2.0'

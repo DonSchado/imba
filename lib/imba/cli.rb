@@ -36,7 +36,7 @@ module Imba
         end
 
         opts.on('-l', '--list', 'List all your movies') do
-          Imba::Movie.list
+          stdout.puts Imba::Movie.list
           exit
         end
 
