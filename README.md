@@ -14,6 +14,7 @@
 - [x] cleanup movie titles, remove crap like (I)
 - [x] synching stuff with progressbar (downloading all the movies)
 - [x] refactor to use active_record instead of datastore for movies
+- [ ] catch errors in cli
 - [ ] get/send different name when false match
 - [ ] add possibility to update
 - [ ] what's up with folders which were deleted but are still in the db?

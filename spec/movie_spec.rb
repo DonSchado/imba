@@ -7,7 +7,7 @@ module Imba
     let!(:tron) { Movie.create(name: 'Tron: Legacy', uniq_id: 3, year: 2012, genres: [:foo, :tron], rating: 9.0) }
 
     it { expect(Movie.list).to match_array([sneakers, tron, war_games]) }
-    it { expect(Movie.top_25.first).to eql(tron) }
-    it { expect(Movie.top_25.last).to eql(sneakers) }
+    it { expect(Movie.top(5).first).to eql(tron) }
+    it { expect(Movie.top(5).last).to eql(sneakers) }
   end
 end
