@@ -14,6 +14,7 @@
 - [x] cleanup movie titles, remove crap like (I)
 - [x] synching stuff with progressbar (downloading all the movies)
 - [x] refactor to use active_record instead of datastore for movies
+- [ ] underscore all the symbols
 - [ ] catch errors in cli
 - [ ] get/send different name when false match
 - [ ] add possibility to update
@@ -26,6 +27,11 @@
 - [ ] maybe document code with yard
 - [ ] decouple movie (objectify representation)
 - [ ] play movie # on ATV (at least open folder or send to vlc)
+
+
+## Impression
+
+![example](/screens/example.png)
 
 
 ## Installation
