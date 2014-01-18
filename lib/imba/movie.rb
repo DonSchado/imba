@@ -1,5 +1,6 @@
 module Imba
   class Movie < ActiveRecord::Base
+    include Colors
     serialize :genres, Array
 
     scope :list, -> { order(name: :asc) }
@@ -8,7 +9,16 @@ module Imba
     scope :genre, ->(genre = nil) { where('genres LIKE ?', "%#{genre}%") }
 
     def to_s
-      "#{uniq_id}: #{name} (#{year}), #{rating}/10, #{genres}"
+      terminal_width = `tput cols`
+      column = terminal_width.to_i / 2
+
+      ''.tap do |s|
+        s << "#{sprintf('%-9s', uniq_id)} #{green(name)}".ljust(column)
+        s << ' ' + magenta("(#{year})")
+        s << ' ' + red("#{rating}/10")
+        s << ' ' + yellow(genres)
+        s.rjust(column)
+      end
     end
   end
 end

@@ -50,7 +50,7 @@ module Imba
           exit
         end
 
-        opts.on('-e', 'execute raw ruby in the "Imba::*" scope') do
+        opts.on('-e', 'execute raw ruby in the "Imba::*" scope (just for dev purpose, will be removed soon!)') do
           stdout.puts eval("Imba::#{argv[0]}")
           exit
         end
