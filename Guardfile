@@ -4,3 +4,6 @@ guard :rspec do
   watch('spec/spec_helper.rb')  { "spec" }
 end
 
+guard 'rake', task: 'check' do
+  watch(%r{^lib/(.+)\.rb$})
+end

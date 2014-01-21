@@ -7,6 +7,7 @@ require 'imba/colors'
 require 'imba/data_store'
 require 'imba/movie'
 require 'imba/movie_list'
+require 'imba/downloader'
 require 'imdb'
 
 module Imba

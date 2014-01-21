@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-stack_explorer', '~> 0.4.9.1'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'flog'
+  spec.add_development_dependency 'guard-rake', '~> 0.0.9'
 
   spec.add_runtime_dependency 'imdb', '~> 0.8.0'
   spec.add_runtime_dependency 'activerecord', '~> 4.0.1'

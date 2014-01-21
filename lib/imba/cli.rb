@@ -31,7 +31,7 @@ module Imba
         end
 
         opts.on('-s', '--synch', 'Scan movies and update database') do
-          Imba::MovieList.new.synch
+          Imba::MovieList.new.synchronize
           exit
         end
 

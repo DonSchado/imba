@@ -5,54 +5,45 @@ require 'ruby-progressbar'
 module Imba
   class MovieList
     include Colors
-    attr_reader :movies
-    attr_accessor :directory_queue, :movie_queue
+    attr_reader :movies, :downloader
+    attr_accessor :skipped, :movie_queue
 
-    Diff = Struct.new(:directory_name, :movie_title, :result)
-
-    def initialize
-      @movies = Movie.all
-      @directory_queue = Queue.new
+    def initialize(downloader = Imba::Downloader.new)
+      @downloader = downloader
       @movie_queue = Queue.new
+      @skipped = []
     end
 
     def movie_dirs
       @movie_dirs ||= Dir['*'].select { |f| File.directory? f }
     end
 
-    #
-    # TODO: make it work first, refactor later (for even more fun!)
-    #
-    def synch
-      prompt = '(enter "y" to confirm or anything else to continue)'
-      indexed_movies = Movie.pluck(:uniq_id)
-      p = ProgressBar.create(title: 'Scanning your movies', total: movie_dirs.length)
-      skipped = []
-
-      # populate queue
+    def select_movies
       movie_dirs.each do |directory_name|
         FileUtils.cd(directory_name) do
-          if File.exist?('.imba') && File.open('.imba') { |f| indexed_movies.include?(f.read.to_i) }
+          if indexed?
             skipped << directory_name
-            p.increment
           else
-            directory_queue.push(directory_name)
+            movie_queue.push(directory_name)
           end
         end
       end
+    end
 
-      # download all the movies
-      until directory_queue.empty?
-        directory_name = directory_queue.pop
-        result = Imdb::Movie.search(directory_name).first
-        movie_title = result.title.gsub(/\(\d+\)|\(.*\)/, '').strip.force_encoding('UTF-8')
-        movie_queue.push Diff.new(directory_name, movie_title, result)
-        p.increment
-      end
+    def synchronize
+      select_movies
+      @result = downloader.prepare(movie_queue).download
+      create_movies
+    end
 
+    def indexed_movies
+      @movies ||= Movie.pluck(:uniq_id)
+    end
+
+    def create_movies
+      prompt = '(enter "y" to confirm or anything else to continue)'
       # puts foundings
-      until movie_queue.empty?
-        diff = movie_queue.pop
+      @result.each do |diff|
         # update movie name? (folder)
         if diff.directory_name != diff.movie_title
           STDOUT.puts "change #{red(diff.directory_name)} => #{green(diff.movie_title)}? \n#{prompt}"
@@ -78,6 +69,12 @@ module Imba
 
       skipped.each { |skip| STDOUT.puts yellow("skipped: #{skip}") }
       STDOUT.puts "\ndone"
+    end
+
+    private
+
+    def indexed?
+      File.exist?('.imba') && File.open('.imba') { |f| indexed_movies.include?(f.read.to_i) }
     end
   end
 end
