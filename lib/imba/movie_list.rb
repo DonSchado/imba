@@ -21,11 +21,7 @@ module Imba
     def select_movies
       movie_dirs.each do |directory_name|
         FileUtils.cd(directory_name) do
-          if indexed?
-            skipped << directory_name
-          else
-            movie_queue.push(directory_name)
-          end
+          skip(directory_name) or movie_queue.push(directory_name)
         end
       end
     end
@@ -74,6 +70,10 @@ module Imba
 
       skipped.each { |skip| STDOUT.puts yellow("skipped: #{skip}") }
       STDOUT.puts "\ndone"
+    end
+
+    def skip(name)
+      skipped << name if indexed?
     end
 
     private
