@@ -8,6 +8,10 @@ module Imba
     scope :year, ->(year = Time.now.year) { where(year: year) }
     scope :genre, ->(genre = nil) { where('genres LIKE ?', "%#{genre}%") }
 
+    def self.search(movie)
+      Imdb::Movie.search(movie).first
+    end
+
     def to_s
       terminal_width = `tput cols`
       column = terminal_width.to_i / 2

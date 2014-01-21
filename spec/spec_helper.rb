@@ -9,6 +9,10 @@ RSpec.configure do |config|
   config.color = true
   config.order = 'random'
 
+  config.mock_with :rspec do |c|
+    c.syntax = :expect
+  end
+
   config.before(:suite) do
     ActiveRecord::Schema.define do
       self.verbose = false

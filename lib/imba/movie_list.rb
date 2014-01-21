@@ -5,7 +5,7 @@ require 'ruby-progressbar'
 module Imba
   class MovieList
     include Colors
-    attr_reader :movies, :downloader
+    attr_reader :movies, :downloader, :progress_bar
     attr_accessor :skipped, :movie_queue
 
     def initialize(downloader = Imba::Downloader.new)
@@ -32,7 +32,8 @@ module Imba
 
     def synchronize
       select_movies
-      @result = downloader.prepare(movie_queue).download
+      downloader.prepare(movie_queue) { init_progress_bar }
+      @result = downloader.download { progress_bar.increment }
       create_movies
     end
 
@@ -40,27 +41,31 @@ module Imba
       @movies ||= Movie.pluck(:uniq_id)
     end
 
+    def init_progress_bar(length = movie_queue.length)
+      @progress_bar ||= ProgressBar.create(title: 'Downloading', total: length)
+    end
+
     def create_movies
       prompt = '(enter "y" to confirm or anything else to continue)'
       # puts foundings
       @result.each do |diff|
         # update movie name? (folder)
-        if diff.directory_name != diff.movie_title
-          STDOUT.puts "change #{red(diff.directory_name)} => #{green(diff.movie_title)}? \n#{prompt}"
-          FileUtils.mv(diff.directory_name, movie_title) if STDIN.gets.strip.downcase == 'y'
+        if diff.local_name != diff.remote_name
+          STDOUT.puts "change #{red(diff.local_name)} => #{green(diff.remote_name)}? \n#{prompt}"
+          FileUtils.mv(diff.local_name, diff.remote_name) if STDIN.gets.strip.downcase == 'y'
         end
 
         # create movie from result
-        STDOUT.puts "save #{green(diff.movie_title)}? \n#{prompt}"
+        STDOUT.puts "save #{green(diff.remote_name)}? \n#{prompt}"
         if STDIN.gets.strip.downcase == 'y'
           movie = Movie.create(
             uniq_id: diff.result.id,
-            name: diff.movie_title,
+            name: diff.remote_name,
             year: diff.result.year,
             genres: diff.result.genres.map { |g| g.downcase.to_sym },
             rating: Float(diff.result.rating)
           )
-          FileUtils.cd(diff.movie_title) do
+          FileUtils.cd(diff.remote_name) do
             File.open('.imba', 'w+') { |f| f.write(movie.uniq_id) }
           end
           STDOUT.puts cyan("#{movie.to_s}\n")
