@@ -7,6 +7,7 @@ module Imba
     scope :top, ->(n = 25) { order(rating: :desc).limit(n) }
     scope :year, ->(year = Time.now.year) { where(year: year) }
     scope :genre, ->(genre = nil) { where('genres LIKE ?', "%#{genre}%") }
+    scope :rating, ->(rating = nil) { where('rating >= ?', rating.to_f) }
 
     def self.search(movie)
       Imdb::Movie.search(movie).first

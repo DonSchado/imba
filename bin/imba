@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 require 'imba'
-require 'imba/cli'
 
-Imba::Cli.execute(STDOUT, ARGV)
+Imba::Cli.execute(ARGV)
+exit
